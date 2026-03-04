@@ -1021,10 +1021,7 @@
           >
             <div class="letter-modal-content" id="letterCard">
               <!-- Sticky top bar: always visible while reading -->
-              <div class="letter-topbar">
-                <button class="scroll-top-btn" onclick="scrollLetterTop()">
-                  <i class="fas fa-arrow-up"></i> Top
-                </button>
+              <div class="letter-topbar" style="justify-content: flex-start">
                 <button class="close-btn" onclick="closeLetter()">×</button>
               </div>
 
@@ -1483,7 +1480,7 @@
       })();
 
       /* COUNTDOWN */
-const UNLOCK_DATE = new Date(Date.now() + 1 * 60 * 1000); // unlocks 10 mins from now
+      const UNLOCK_DATE = new Date(Date.now() + 1 * 10 * 1000); // unlocks 10 mins from now
       function updateCountdown() {
         const now = new Date();
         const diff = UNLOCK_DATE - now;
@@ -1626,19 +1623,21 @@ const UNLOCK_DATE = new Date(Date.now() + 1 * 60 * 1000); // unlocks 10 mins fro
       function openLetter() {
         const modal = document.getElementById("letterModal");
         const card = document.getElementById("letterCard");
-        modal.scrollTop = 0; // reset outer
-        card.scrollTop = 0; // reset inner — always starts from top
         modal.style.display = "block";
-        document.body.style.overflow = "hidden";
+        setTimeout(() => {
+          card.scrollTop = 0;
+          modal.scrollTop = 0;
+          window.scrollTo({ top: 0, behavior: "smooth" }); // ✅ page scrolls to top too
+        }, 10);
       }
+
       function closeLetter() {
-        const modal = document.getElementById("letterModal");
-        modal.style.display = "none";
-        document.body.style.overflow = "";
+        document.getElementById("letterModal").style.display = "none";
       }
       function scrollLetterTop() {
         document.getElementById("letterCard").scrollTop = 0;
       }
+
       function handleBackdropClick(e) {
         if (e.target === document.getElementById("letterModal")) closeLetter();
       }
