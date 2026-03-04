@@ -1483,7 +1483,7 @@
       })();
 
       /* COUNTDOWN */
-    const UNLOCK_DATE = new Date("2026-03-06T00:00:00");
+  const UNLOCK_DATE = new Date(Date.now() + 3 * 60 * 1000); // unlocks 10 mins from now
       function updateCountdown() {
         const now = new Date();
         const diff = UNLOCK_DATE - now;
